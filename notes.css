@@ -1,0 +1,131 @@
+.sgn_container{
+    width: 100% !important;
+    overflow: visible;
+    display: flex;
+    margin: 10px;
+    /* height: max-content; */
+    height: 20vh !important;
+
+}
+
+.sgn_padding{
+    width: 90%;
+}
+
+.sgn_prompt_logout{
+    width: 90%;
+}
+.sgn_container_login{
+    display: block;
+    width: 100% !important;
+}
+.mail_modal{
+    display: block !important;
+}
+
+/* Modal styles */
+.modal {
+    display: block;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  .modal-content {
+  
+    position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0.5rem;
+  border: 1px solid #888;
+  width: 80%;
+  min-height: 70vh;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+  }
+  
+  .modal-header,
+  .modal-footer {
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  #customers{
+    table-layout: fixed;
+
+  }
+
+
+  #customers td>th:nth-child(1) {
+    width: 60%;
+}
+
+#customers td>th:nth-child(2),
+#customers td>th:nth-child(3) {
+    width: 20%;
+}
+  
+  #customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  
+  #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+ 
+  .th-1{
+    width: 60%;
+  }
+  .th-2{
+    width: 22%;
+  }
+  .delete{
+    color: red;
+  }
+  .sgn_prompt_logout{
+    width: 100% !important;
+  }
+  .sgn_textarea_container{
+    width: 100% !important;
+
+  }

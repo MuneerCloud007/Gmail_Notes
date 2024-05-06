@@ -1,0 +1,27 @@
+1. login crm, revoke token from control panel, and share again -> auto logout
+with prompt (first name, last name available)
+
+2. share to crm -> login -> continue to share
+
+3. icon status (not logged in, logged in, auto sync turned on) 
+    not logged in / not shared -> default
+    auto sync enabled -> always auto sync
+    logged in & shared & autosync not enabled -> show shared
+
+
+4. add note from mobile/addon , see note from list page
+    merge time dict from two places
+
+4b. after summary is displayed (e.g. refresh), update note from mobile, list page will not
+auto update 
+
+4b2. after refresh of entire page, list page will show new note
+
+5. addon, should select opportunity by primary contact
+5b. need to check the case sender and recipient are the same person
+
+6. hide mutiple share for now
+
+7. for non-conversation mode, write note in extension, will be automatically
+grouped in the mobile app
+

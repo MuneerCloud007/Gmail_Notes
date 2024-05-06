@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "Gmail_Notes",
+  "version": "2.8.30.0",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
+  "short_name": "SGNotes",
+  "icons": {
+    "128": "image/icon.128.png",
+    "16": "image/icon.16.png",
+    "48": "image/icon.48.png"
+  },
+  "action": {
+    "default_icon": "image/icon.128.png",
+    "default_popup": "popup.html"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgyUBS53d5P2ograP4JKK656jrrauipHsAdgcTZyL1j5MKBMD4yBmHl9BcmS+sfhmOE5fS38ng7XRZIErp8SrWbJwwstMWx+FTDKlrFS3J5so85CgOpRNge+Ge8UyhxAkPB7zui1AU3wD/XieaGN2L9pmT4MN1u6pPs2Lf/8i96Vp8YjUKaKIWmevKeqsGr1HNHZt41/dcBBIr6vW6OoWlViI1bae+p4Cv6VertdadkuW4hc7z8jVrlC0Lyu43oETmXWflUhw/hCctktI+KwJNk47Pm9vX2Bgw7EdovukrYPV+iNzzE49jirbQkZvMGuNV3fA+NbUwmo7c9dypCAweQIDAQAB",
+
+    "oauth2":{
+     "client_id":"408564813280-hbao28s8hhscknanrm14qdmm6vcn309d.apps.googleusercontent.com",
+     "scopes":[
+
+       "https://www.googleapis.com/auth/drive"
+     ]
+
+   },
+
+  "options_page": "options.html",
+  "permissions": [
+    "identity",
+    "scripting",
+    "storage",
+    "activeTab",
+    "contextMenus",
+    "webRequest",
+    "webRequestBlocking",
+    "tabs",
+    "declarativeContent",
+    "webNavigation",
+    "https://www.googleapis.com/drive/v3/files/*",
+    "https://apis.google.com/*"
+
+]
+,
+  "host_permissions": [
+    "https://mail.google.com/*",
+    "https://portal.simplegmailnotes.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+
+  },
+
+  "content_scripts": [{
+    "matches": ["https://mail.google.com/*","https://mail.google.com/mail/u/0/#inbox"],
+    "css": ["popup.css", "css/style.css","notes.css","lib/featherlight/featherlight.min.css", "css/jquery-ui.css", "css/jquery.mentions.css"],
+    "js": [ "notes.js", "noteById.js"],
+    "run_at": "document_end"
+  }],
+
+  "web_accessible_resources": [{
+    "resources": ["./image/popup/*","image/icon.24.png","image/popup/support.png","image/add-note.png", "image/power-by.png", "image/donation.24.png", "image/table-sort.png", "image/color-picker.24.png", "image/text-color.24.png", "image/sgn-search-in-homepage.48.png", "image/modal-loading.gif", "image/Google-Drive-icon.png", "image/share.24.png", "image/shared.24.png", "image/search.24.png", "image/logout.24.png", "image/folder.33.png", "image/folder.54.png", "image/email.30.png", "image/team.33.png", "image/contact.30.png", "image/contact_blue.30.png", "image/revoke.24.png", "image/calendar.24.png", "image/bart-logo.24.png", "image/preferences.24.png", "image/delete.24.png", "image/chat.24.png", "image/comment.3x.png", "image/share-auto.24.png", "image/share-outdated.24.png", "image/opportunity.png", "image/note-timestamp.png", "image/warning.3x.png", "image/crm-logo.24.png", "image/template.png", "image/arrow-right.png", "image/edit-note-icon.png", "image/comment-icon.png", "image/new-comment.png", "image/login-comment-icon.3x.png", "image/note_icon.png", "image/gmail_note_icon.png", "image/arrow_up.png", "image/arrow_down.png", "image/comment_icon.png", "image/circle-right.64.png", "image/right-arrow.64.png", "image/question.64.png", "image/circle-exclamation.64.png", "image/chat.64.png", "image/individual-to-share.42.png", "image/individual-shared.42.png", "image/crm_calendar.33.png", "image/crm_tip.3x.png", "image/search-loading.gif", "image/share_note.3x.png", "image/unshare_note.3x.png", "image/crm-with-signin-list.24.png", "image/crm-with-signin-detail.24.png", "image/crm-with-signin-list.48.png", "image/crm-with-signin-detail.48.png" ]
+    ,"matches": ["<all_urls>"]
+  }]
+}
+
+

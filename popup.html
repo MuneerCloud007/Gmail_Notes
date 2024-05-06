@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Gmail Notes Popup</title>
+ 
+  <style>
+    body {
+      width:200px;
+    }
+    div.row {
+      margin: 10px;
+    }
+
+    .strong{
+      font-weight: bold;
+      font-style: italic;
+      font-size: 120%;
+    }
+
+    .sgn-menu-table a, .sgn-menu-table a:visited{
+      color:#2e90ce;
+      text-decoration: none;
+      vertical-align: middle;
+      clear: left;
+    }
+
+    .sgn-menu-table img{
+      height:20px;
+      margin:5px;
+
+      vertical-align: middle;
+    }
+    div.logo {
+      text-align: right;
+    }
+    .helper{
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="popup.css">
+
+</head>
+<body>
+  <table class='sgn-menu-table'>
+    <tr>
+      <td>
+        <img src="image/popup/how-to-use.png">
+      </td>
+      <td>
+        <a href="https://www.bart.com.hk/how-to-use-simple-gmail-notes/?f=ph">How to Use</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="image/popup/sync-mobile.png">
+      </td>
+      <td>
+        <a href="https://www.bart.com.hk/simple-gmail-notes-and-simple-mobile-crm/?f=ph">View notes in mobile phone</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="image/popup/preferences.png">
+      </td>
+      <td>
+        <a id="open_options" href="#">Preferences</a>
+      </td>
+    </tr>
+    <tr id='support-review-container'>
+      <td>
+        <img src="image/popup/review.png">
+      </td>
+      <td>
+        <a id='write_reivew' href="#">Write a Review</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="image/popup/report-a-bug.png">
+      </td>
+      <td>
+        <a href="https://www.bart.com.hk/?f=ph#ContactUs">Report an Issue</a>
+      </td>
+    </tr>
+    <tr id="support-subscribe-container">
+      <td>
+        <img src="image/popup/support.png">
+      </td>
+      <td>
+        <a id="support-subscribe" href="https://www.bart.com.hk/simple-gmail-notes-support-package/?f=ph">Subscribe to Support Package</a>
+      </td>
+    </tr>
+  </table>
+  <!-- Button trigger modal -->
+<button type="button" class="authBtn" >
+  auth
+</button>
+
+<button type="button" class="authLogout">Log out</button>
+
+
+  </div>
+  <script src="./popup.js"></script>
+</body>
+</html>

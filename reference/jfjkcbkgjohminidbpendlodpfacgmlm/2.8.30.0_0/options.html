@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head><title>Simple Gmail Notes Options</title>
+<script src="lib/jquery.js"></script>
+<script src="lib/jquery.simple-color.js"></script>
+<script src="lib/js-yaml.min.js"></script>
+<script src="settings.js"></script>
+<script src="common/shared-common.js"></script>
+<script src="background.js"></script>
+<script src="options.js"></script>
+<link rel="stylesheet" href="css/bulma.min.css">
+<style>
+  * {
+   font-size: 16px;
+   font-family: Arial;
+  }
+
+  td {
+    padding: 10px;
+  }
+
+  .simpleColorDisplay {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .logo{
+    text-align:right;
+    margin-top:15px;
+  }
+
+  .debugInfo{
+  }
+
+  pre {
+    white-space: normal;
+    word-break: break-all;
+  }
+
+  ul {
+    padding-bottom: 20px;
+  }
+
+#disabled_accounts {
+  margin-left: 20px;
+  color: gray;
+}
+
+#disabled_accounts label {
+  display: block;
+}
+ 
+.debug_line{
+    background-color: #e2e0e0;
+    margin: 0;
+}
+
+.notification.subscription{
+  margin-top: 10px;
+  margin-bottom: 0;
+  line-height: 2;
+  background-color: #fdddd0;
+}
+
+.preferences-header {
+  margin-top: 35px;
+}
+
+.logo img{
+  height: 60px;
+}
+
+.templates_title{
+    margin-left: 15px;
+    font-size: 14px;
+    text-align: left;
+    color: #757575;
+}
+
+.templates_content{
+  margin-top: 22px;
+  height: 210px;
+  width: 100%;
+  padding-left: 9px;
+  padding-right: 9px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.simple_template{
+  padding-left: 15px;
+}
+
+textarea::-webkit-input-placeholder {
+  color: #999999;
+  font-size: 12px;
+}
+
+.template_setting{
+  margin: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.template_setting input{
+  margin-left: 40px;
+}
+
+.template_hint{
+  margin: 15px;
+  background-color: #f6f6f6;
+  min-height: 45px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  color: #757575;
+}
+
+.template_hint img{
+  width: 17px;
+  height: 19px;
+  margin-left: 20px;
+  margin-right: 8px;
+}
+
+.template_hint_text{
+  font-size: 14px;
+}
+
+.social img {
+  height: 24px;
+}
+
+.column .notification {
+  height: 100%;
+}
+
+.notification.review {
+  padding: 8px;
+}
+
+.notification.review a {
+  text-decoration: none;
+}
+
+.sgn_hide_empty_icon{
+    width: 17px;
+    height: 19px;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+.sgn_hide_empty_text{
+  font-size: 14px;
+  font-weight: 300;
+  color: #333333;
+  padding-right: 20px;
+}
+
+.sgn_hide_empty_tr{
+  background-color: #f5f5f5;
+}
+
+.sgn_toolbar_button_img{
+  padding-left: 40px;
+}
+  
+#subscriberBlock {
+   flex-direction: column;
+  align-items: flex-start; 
+}
+
+.import-button-container, .export-button-container {
+    padding: 10px;
+}
+
+#export_settings, #import_settings{
+    margin-left: 50px;
+}
+
+#subscriptionEmail {
+  color: #888;
+  border: none;
+  cursor: pointer;
+}
+
+#subscriptionEmail:focus{
+    outline: none;
+}
+</style>
+</head>
+<body>
+
+
+<div class="container">
+
+  <div class="level">
+    <div class="level-left logo">
+      <div class="level-item">
+          <a target="_blank" id="bart_logo" href="https://www.bart.com.hk/">
+            <img src="https://static-gl-media-p.simplegmailnotes.com/media/logo2.png">
+          </a>
+      </div>
+      <div class="level-item">
+          <a target="_blank" id="bart_logo" href="https://cloud.withgoogle.com/partners/detail/?id=CIGAgICAgMCE8wE%3D&hl=en-GB&language=en">
+            <img src="https://static-gl-media-p.simplegmailnotes.com/media/google_partner_badge.png">
+          </a>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item social has-text-centered">
+        Follow us for latest releases, bug fixes and features:&nbsp;
+      </div>
+      <div class="level-item social">
+        <a href="https://www.facebook.com/bartsolutions/" target='_blank'>
+          <img src="https://static-gl-media-p.simplegmailnotes.com/media/facebook.png">
+        </a>
+      </div>
+      <div class="level-item social">
+        <a href='https://twitter.com/bartsolutions' target='_blank'>
+          <img src="https://static-gl-media-p.simplegmailnotes.com/media/twitter.png">
+        </a>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="subscription notification is-warning has-padding">
+    <div class="support-subscription-container">
+    If you do like this extension, please 
+    <a target='_blank' class='has-text-link' href='https://www.bart.com.hk/simple-gmail-notes-support-package/?f=p'><strong>subscribe to SGN Support Package</strong></a>. 
+    This not only helps support our development, you will also get the prioritized email support (normally within 24 hours) regard to any questions for Simple Gmail Notes.
+    If you have already made a subscription, you might <a id='review_invoice' class="has-text-link" href='#'><strong>review your subscription and invoices here</strong></a>.
+    <br/><br/>
+    </div>
+     <div>You may also be interested to <a href="https://www.bart.com.hk/products/?f=sgn" class='has-text-link' target="_blank">other products of ours</a> :)</div>
+  </div>
+
+  <div class="notification">
+    
+    <div class="is-size-5 has-text-weight-bold">Import Reminder:</div><br/>
+    <div>
+      Due to <a class='has-text-link' href='https://developer.chrome.com/blog/resuming-the-transition-to-mv3' target='_blank'>Google policy about web extension Manifest V3</a>,
+      SGN will have a major upgrade for the next version.
+      <strong>You will still access previous SGN notes seamlessly</strong>. However, the SGN preferences, 
+      if you ever updated, will be lost and need to be set up again. 
+      You are advised to manually screen capture the SGN settings for later restore purpose. 
+      If you are a subscriber, you could export settings first and import later.
+    </div>
+    
+  </div>
+  
+  <br/>
+  <div class="level preferences-header">
+    <div class="level-left">
+      <div class="level-item">
+        <h2 class="title">Preferences</h2>
+      </div>
+    </div>
+  </div>
+
+  <nav class="panel">
+    <p class="panel-heading">Notes Appearance</p>
+    <div class="panel-block">
+      <table id="notesAppearance">
+      </table>
+    </div>
+  </nav>
+
+  <nav class="panel">
+    <p class="panel-heading">Advanced Features</p>
+    <div class="panel-block">
+      <table id="advancedFeatures"><tr><td></td></tr></table>
+    </div>
+  </nav>
+
+  <nav class="panel" id="disabled_accounts_container">
+    <p class="panel-heading">Disabled Accounts</p>
+    <div class="panel-block">
+      <table>
+        <tr>
+          <td>
+            Disable the extension for the following Gmail accounts:
+            <div id="disabled_accounts"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </nav>
+
+  <nav class="panel">
+    <p class="panel-heading">Simple Mobile CRM</p>
+    <div class="panel-block">
+      <table id="simpleMobileCRM">
+      </table>
+      <div class="notification is-info">
+        With Simple Mobile CRM, you could view the notes in 
+        <a target='_blank' href='https://mobilecrm.io/ios-download/'>iPhone / iPad</a>
+        / <a target='_blank' href='https://mobilecrm.io/android-download/'>Android</a> 
+        / <a target='_blank' href='https://mobilecrm.io/addon-download/'>Gmail Addon</a>. <br/>
+        <a href='https://www.simplemobilecrm.com/faq-how-to-view-crm-notes/?f=sgn' target='_blank'>Learn More</a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="panel">
+    <p class="panel-heading">Template</p>
+    <div class="panel-block">
+      <div style="width:100%;">
+        <div class="templates_title">
+          If a template is provided, a new button of 'load template' will appear in the SGN toolbar.
+        </div>
+        <div class="simple_template">
+            <div>
+                <textarea class="templates_content" placeholder="Template content ..." id="templateContent"></textarea>
+            </div>
+        </div>
+        <div class="template_setting">
+          <label for="templateAutoload">Autoload Template  (SGN Subscriber Options)</label>
+          <input type="checkbox" id="templateAutoload"/>
+        </div>
+        <div class="template_hint">
+          <img src="/image/hide-empty-icon.png" class="template_hint_image">
+          <div class="template_hint_text">
+            When autoload is enabled, the template will show up for every empty note. The note of template will NOT be auto-saved if not updated.
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav id="subscriberPanel" class="panel">
+    <p class="panel-heading">SGN Subscriber Options</p>
+    <div class="panel-block" id="subscriberBlock">
+      <table id="subscriberOptions">
+        <tr id="disabled_accounts_container">
+        </tr>
+      </table>
+      <div class="export-button-container"><label for="export_settings">Export Settings (.yaml)</label><button id="export_settings">Export</button></div>
+      <div class="import-button-container"><label for="import_settings">Import Settings</label><input type="file" id="import_settings" accept=".yaml,.yml"></div>
+      <a id="download_settings" style="display:none;"></a>
+    </div>
+  </nav>
+
+  <table>
+    <tr>
+      <td colspan=2>
+        <div id="status"></div>
+        <div> <button id="save" class="button is-link">Save</button> </div>
+        <br/>
+        <br/>
+        <br/>
+        <div>
+          <button id="reset" class="button is-danger">Reset to Default Values</button> &nbsp; 
+          <button id="revoke" class="button is-link">Manage Access Tokens</button>&nbsp;
+          <button id="review" class="button is-link">Give Us a Five Star Review</button>
+        </div>
+
+      </td>
+    </tr>
+  </table>
+
+  <hr/>
+  <h2 class="title">FAQ</h2>
+  <ul>
+    <li><b>How to use Simple Gmail Notes (SGN)?</b></li>
+    <li>After installation, simply refresh the Gmail page (press enter in address bar) to activate the extension.<br/>
+      Then click into any email, and click the 'login' URL above the text area.<br/>
+      After login, you could type the notes in the text area, the notes will be saved automatically. <br/>
+      <a target='_blank' href='https://www.bart.com.hk/how-to-use-simple-gmail-notes/'>View here for more detailed instructions</a>.
+
+  </ul>
+  <ul>
+    <li><b>If the extension is free and open sourced, why there is a subscription?</b></li>
+    <li>While the product itself is free and open sourced, it still takes time and actual cost for engineers to actively maintain it.<br/>
+      With <a target='_blank' class='has-text-link' href='https://www.bart.com.hk/simple-gmail-notes-support-package/?f=p2'>SGN subscription</a>, you could enjoy a few subscriber only features (under subscriber section of preferences page) as well as prioritized email support.<br/>
+      More importantly, you help support our continuous development and maintenance of the product.
+  </ul>
+  <ul>
+    <li><b>How do I view the notes on mobile devices?</b></li>
+    <li>Currently, it's impossible to install any Chrome extension / Firefox add-on on mobile devices.<br/>
+      However, the notes from SGN could be synced into mobile devices by <a href='https://mobilecrm.io'>Simple Mobile CRM</a>, which is another product of Bart Solutions.<br/><br/>
+      Simple Mobile CRM also provides extra features like opportunity tracking and team collaboration,
+      <a target='_blank' href='https://mobilecrm.io/faq/'>view here for more details</a>. There is no time limit for free plan of Mobile CRM.
+  </ul>
+  <ul>
+    <li><b>Would SGN be affected after <a href=https://mobilecrm.io">Simple Mobile CRM</a> integration?</b></li>
+    <li>No, your existing notes, services and privacy would NOT be affected. In case you have further concerns, please visit our <a target="_blank" href='https://mobilecrm.io/sgn-crm-faq/'>SGN CRM FAQ</a> for the detailed answers.</li>
+  </ul>
+
+  <ul>
+    <li><b>When and where are the notes saved?</b></li>
+    <li>By default, the notes are saved whenever the text area is out of focus (e.g. click anywhere else on the page, or view another email).<br/>
+      The notes are saved in your own Google Drive. Click the magnifier glass above the SGN textarea and then click the Google Drive icon, you should see the storage folder</li>
+  </ul>
+  <ul>
+    <li><b>May I get more information about the extension?</b></li>
+    <li>Please <a  target="_blank" href='https://www.bart.com.hk/simple-gmail-notes/'>visit here</a> for the detailed instructions and policies.</li>
+  </ul>
+  <ul>
+    <li><b>Why I can't see the note abstract?</b></li>
+    <li>Sometimes the note abstract would take up to 2 seconds to appear. If the abstract does not appear after a long time, please help report a bug.</li>
+  </ul>
+  <ul>
+    <li><b>Why I need to log into my Google Drive again while I already opened Google Drive in another tab?</b></li>
+    <li>For security reasons, the extension could not get the Google Drive access from your existing browser right away. You need to explicitly grant so.</li>
+  </ul>
+  <ul>
+    <li><b>How do I report a bug?</b></li>
+    <li><div>Please <a target='_blank' href='https://www.bart.com.hk/#ContactUs'>report your bug here</a>.</div> 
+      <div>And please also <b>include the following debug information</b> in the bug report: </div>
+      <div class="debugInfo container">
+        <pre id='debug_page_info'> </pre>
+        <hr class="debug_line">
+        <pre id='debug_content_info'> </pre>
+        <hr class="debug_line">
+        <pre id='debug_background_info'> </pre>
+        <hr class="debug_line">
+        <pre id='debug_gdrive_info'> </pre>
+      </div>
+    </li>
+  </ul>
+  <ul>
+    <li>To learn more, please visit the <a target='_blank' href='https://www.bart.com.hk/simple-gmail-notes/'>Simple Gmail Notes product page</a> and the 
+      <a target='_blank' href='https://www.bart.com.hk/simple-gmail-notes-faq/'>detailed FAQ</a>.
+  </ul>
+</div>
+</body>
+</html>

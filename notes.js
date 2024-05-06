@@ -91,7 +91,7 @@ const injectMainElements = async () => {
                 })
             }
             const searchTerm = e.target.value.trim().toLowerCase();
-            let filteredFiles;
+            let filteredFiles=[];
             if (searchTerm.length==0) {
                 console.log(FileLists);
                 filteredFiles = [...FileLists];
@@ -105,24 +105,30 @@ const injectMainElements = async () => {
                         })
                     }
                 
-                filteredFiles = FileLists.filter((vl) => {
+               
+                FileLists.forEach((vl) => {
                     const { name, content } = vl;
                    
-                    return name.toLowerCase().includes(searchTerm) || content.toLowerCase().includes(searchTerm);
+                    if (name.toLowerCase().includes(searchTerm) || content.toLowerCase().includes(searchTerm)) {
+                        filteredFiles.push(vl);
+                    }
                 });
+                
+                
+
             }
             console.log(filteredFiles);
             document.querySelector("#customers>tbody")
                 .innerHTML = "";
             // Populate the table with filtered data
-            filteredFiles.forEach((data) => {
+            filteredFiles.forEach(async(data) => {
                 const row = document.createElement("tr");
                 row.classList.add("row");
                 const { name, content, id } = data;
                 const td1 = document.createElement("td");
                 td1.textContent = name;
                 const td2 = document.createElement("td");
-                td2.textContent = content;
+                td2.textContent = content || await fetchFileContentById(id);
                 const td3 = document.createElement("td");
                 td3.textContent = "Delete";
                 td3.id = id;
@@ -259,10 +265,10 @@ chrome.runtime.onMessage.addListener(message => {
     if (message && message.message === 'ScriptsInjected') {
         // Check if the target element exists and initiate the loading process
         if (document.getElementsByClassName("D E G-atb").length > 0) {
-            if (!document.getElementsByClassName("mail_modal").length > 0 && location.href=="https://mail.google.com/mail/u/0/#inbox")  {
+            if (!document.getElementsByClassName("mail_modal").length > 0)  {
                 load();
             }
-            else if(location.href=="https://mail.google.com/mail/u/0/#inbox"){
+            else{
 if(!dataLoaded){
     dataLoaded=true;
 

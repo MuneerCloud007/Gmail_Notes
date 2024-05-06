@@ -1,4 +1,3 @@
-//<textarea class="sgn_input" style="color: rgb(82, 82, 82); height: 73.2px; background-color: rgb(199, 217, 194);"></textarea>
 const url = 'https://www.googleapis.com/upload/drive/v3/files';
 let loginData = false;
 let accessToken = "";

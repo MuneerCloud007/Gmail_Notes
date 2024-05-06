@@ -170,6 +170,7 @@ If error persists, you may try to manually <a href="https://accounts.google.com/
                     if (!document.getElementsByClassName("sgn_container").length > 0) {
 
                     loadById();
+                    return;
                     }
 
                 }
@@ -457,37 +458,3 @@ async function updateFileContent(fileId, newContent) {
         console.error('Error updating file content:', error);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

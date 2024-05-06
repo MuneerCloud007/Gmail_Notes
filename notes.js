@@ -17,10 +17,8 @@ const load = async () => {
         apiToken = api_token;
         console.log(apiToken);
 
-        if(!apiToken) {
-            return load();
 
-        }
+        
 
         FolderId = await folderIdApiKey(apiToken);
         console.log(FolderId);
@@ -261,10 +259,10 @@ chrome.runtime.onMessage.addListener(message => {
     if (message && message.message === 'ScriptsInjected') {
         // Check if the target element exists and initiate the loading process
         if (document.getElementsByClassName("D E G-atb").length > 0) {
-            if (!document.getElementsByClassName("mail_modal").length > 0) {
+            if (!document.getElementsByClassName("mail_modal").length > 0 && location.href=="https://mail.google.com/mail/u/0/#inbox")  {
                 load();
             }
-            else{
+            else if(location.href=="https://mail.google.com/mail/u/0/#inbox"){
 if(!dataLoaded){
     dataLoaded=true;
 
